@@ -25,12 +25,12 @@ $('#file').on('change', function (e) {
     .cropper(options) // 重新初始化裁剪区域 */
 
   $image
-  .cropper('destroy')  // 销毁旧的裁剪区域
-  .attr('src',imgURL)
-  .cropper(options)
+    .cropper('destroy')  // 销毁旧的裁剪区域
+    .attr('src', imgURL)
+    .cropper(options)
 })
 
-$('#btnUpload').on('click',function(){
+$('#btnUpload').on('click', function () {
   // 1. 拿到用户裁剪之后的头像
   // var dataURL=$image
   // .cropper('getCropperCanvas',{
@@ -39,22 +39,22 @@ $('#btnUpload').on('click',function(){
   //   height:100,
   // })
   // .toDataURL('image/png')  // 将Canvas画布上的内容，转化为base64格式的字符串
-  var dataURL=$image
-  .cropper('getCroppedCanvas', { // 创建一个 Canvas 画布
-  width: 100,
-  height: 100
-  })
-  .toDataURL('image/png')
-  
+  var dataURL = $image
+    .cropper('getCroppedCanvas', { // 创建一个 Canvas 画布
+      width: 100,
+      height: 100
+    })
+    .toDataURL('image/png')
+
   // 2. 调用接口，把头像上传到服务器
   $.ajax({
-    url:'/my/update/avatar',
-    method:'post',
-    data:{
-      avatar:dataURL
+    url: '/my/update/avatar',
+    method: 'post',
+    data: {
+      avatar: dataURL
     },
-    success:res=>{
-      if(res.status!=0) return layer.msg('更换头像失败')
+    success: res => {
+      if (res.status != 0) return layer.msg('更换头像失败')
       layer.msg('更换头像成功')
       window.parent.getUserInfo()
     }
